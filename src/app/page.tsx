@@ -67,6 +67,7 @@ export default function DashboardPage() {
   const [statusMap, setStatusMap] = useState<RetailCrmStatusMap>({});
   const [filteredCount, setFilteredCount] = useState(0);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
     async function syncFromCRM() {
@@ -144,6 +145,7 @@ export default function DashboardPage() {
       } finally {
         if (!cancelled) {
           setLoading(false);
+          setIsInitialLoad(false);
         }
       }
     }
@@ -154,7 +156,7 @@ export default function DashboardPage() {
     };
   }, [searchQuery, tablePage, tablePageSize, refreshKey]);
 
-  if (loading) {
+  if (isInitialLoad && loading) {
     return <LoadingSkeleton />;
   }
 
