@@ -69,6 +69,20 @@ export default function DashboardPage() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
+    async function syncFromCRM() {
+      try {
+        await fetch("/api/sync/orders");
+      } catch {
+        // non-critical, ignore
+      }
+    }
+
+    syncFromCRM();
+    const interval = setInterval(syncFromCRM, 60_000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     const channel = supabase
       .channel("dashboard-orders-realtime")
       .on(
