@@ -121,7 +121,9 @@ export async function GET(request: NextRequest) {
 
     const dailyMap = new Map<string, { revenue: number; count: number }>();
     (summaryOrders ?? []).forEach((order) => {
+      if (!order.created_at) return;
       const day = String(order.created_at).slice(0, 10);
+      if (day.length < 10 || isNaN(Date.parse(day))) return;
       const existing = dailyMap.get(day) || { revenue: 0, count: 0 };
       existing.revenue += Number(order.total_sum);
       existing.count += 1;

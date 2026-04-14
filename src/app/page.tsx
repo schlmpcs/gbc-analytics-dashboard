@@ -279,7 +279,9 @@ export default function DashboardPage() {
                     </defs>
                     <XAxis
                       dataKey="date"
-                      tickFormatter={(d) => format(parseISO(d), "dd MMM")}
+                      tickFormatter={(d) => {
+                        try { return format(parseISO(d), "dd MMM"); } catch { return d; }
+                      }}
                       fontSize={10}
                       stroke="#757684"
                       tickLine={false}
@@ -312,9 +314,9 @@ export default function DashboardPage() {
                         formatCurrency(Number(value)),
                         "Revenue",
                       ]}
-                      labelFormatter={(label) =>
-                        format(parseISO(label as string), "dd MMM yyyy")
-                      }
+                      labelFormatter={(label) => {
+                        try { return format(parseISO(label as string), "dd MMM yyyy"); } catch { return label as string; }
+                      }}
                     />
                     <Area
                       type="monotone"
