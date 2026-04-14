@@ -13,35 +13,25 @@ export async function GET(_request: NextRequest) {
     return NextResponse.json({ error: "Missing env vars" }, { status: 500 });
   }
 
-  // Fetch orders updated in the last 2 minutes (overlap avoids gaps between runs)
-  const since = new Date(Date.now() - 2 * 60 * 1000)
-    .toISOString()
-    .slice(0, 19);
-
+  // RetailCRM v5 does not expose a modification-date filter on the orders endpoint.
+  // Fetch the first page (100 most-recent orders) on every poll; the upsert is
+  // idempotent so re-syncing unchanged rows is safe.
   const allOrders: CRMOrder[] = [];
-  let page = 1;
 
-  while (true) {
-    const url = new URL("/api/v5/orders", retailCrmUrl);
-    url.searchParams.set("apiKey", apiKey);
-    url.searchParams.set("limit", "100");
-    url.searchParams.set("page", String(page));
-    url.searchParams.set("filter[updatedAtFrom]", since);
+  const url = new URL("/api/v5/orders", retailCrmUrl);
+  url.searchParams.set("apiKey", apiKey);
+  url.searchParams.set("limit", "100");
+  url.searchParams.set("page", "1");
 
-    const res = await fetch(url.toString(), { cache: "no-store" });
-    if (!res.ok) break;
-
+  const res = await fetch(url.toString(), { cache: "no-store" });
+  if (res.ok) {
     const data = (await res.json()) as {
       success: boolean;
       orders: CRMOrder[];
-      pagination: { totalPageCount: number };
     };
-
-    if (!data.success) break;
-
-    allOrders.push(...data.orders);
-    if (page >= data.pagination.totalPageCount) break;
-    page++;
+    if (data.success) {
+      allOrders.push(...data.orders);
+    }
   }
 
   if (allOrders.length === 0) {
