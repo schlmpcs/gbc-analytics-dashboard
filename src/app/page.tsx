@@ -12,6 +12,7 @@ import {
 import { format, parseISO } from "date-fns";
 import { Search, Calendar, Package } from "lucide-react";
 
+import { supabase } from "@/lib/supabase";
 import type { Order } from "@/lib/types";
 import {
   getStatusChartColor,
@@ -65,6 +66,22 @@ export default function DashboardPage() {
   const [statusChartData, setStatusChartData] = useState<StatusChartItem[]>([]);
   const [statusMap, setStatusMap] = useState<RetailCrmStatusMap>({});
   const [filteredCount, setFilteredCount] = useState(0);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  useEffect(() => {
+    const channel = supabase
+      .channel("dashboard-orders-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders" },
+        () => setRefreshKey((k) => k + 1)
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -121,7 +138,7 @@ export default function DashboardPage() {
     return () => {
       cancelled = true;
     };
-  }, [searchQuery, tablePage, tablePageSize]);
+  }, [searchQuery, tablePage, tablePageSize, refreshKey]);
 
   if (loading) {
     return <LoadingSkeleton />;
@@ -155,9 +172,12 @@ export default function DashboardPage() {
           {/* Header Section */}
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h2 className="text-[2.75rem] font-black text-on-surface leading-tight tracking-tight">
-                Overview
-              </h2>
+              <div className="flex items-center gap-3">
+                <h2 className="text-[2.75rem] font-black text-on-surface leading-tight tracking-tight">
+                  Overview
+                </h2>
+                <LiveIndicator />
+              </div>
               <p className="text-on-surface-variant font-medium mt-1">
                 Order performance analytics synced from Supabase.
               </p>
@@ -440,6 +460,19 @@ export default function DashboardPage() {
         onClose={() => setSelectedOrder(null)}
       />
     </>
+  );
+}
+
+/* ─── Live Indicator ─── */
+function LiveIndicator() {
+  return (
+    <span className="flex items-center gap-1.5 text-xs font-semibold text-green-600 self-center">
+      <span className="relative flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+      </span>
+      Live
+    </span>
   );
 }
 

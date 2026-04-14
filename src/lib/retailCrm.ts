@@ -10,7 +10,7 @@ export type RetailCrmStatusMap = Record<string, RetailCrmStatusMeta>;
 
 interface RetailCrmStatusesResponse {
   success?: boolean;
-  statuses?: unknown;
+  statuses?: Record<string, unknown>;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -23,11 +23,11 @@ function parseStatusMap(payload: unknown): RetailCrmStatusMap | null {
   }
 
   const { success, statuses } = payload as RetailCrmStatusesResponse;
-  if (success !== true || !Array.isArray(statuses)) {
+  if (success !== true || !isRecord(statuses)) {
     return null;
   }
 
-  const entries = statuses.flatMap((status) => {
+  const entries = Object.values(statuses).flatMap((status) => {
     if (!isRecord(status)) {
       return [];
     }

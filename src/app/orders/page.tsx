@@ -63,6 +63,7 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -104,6 +105,24 @@ export default function OrdersPage() {
     fetchStatusMap();
     return () => {
       cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const channel = supabase
+      .channel("orders-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders" },
+        () => {
+          console.log("[realtime] orders change received");
+          setRefreshKey((k) => k + 1);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
     };
   }, []);
 
@@ -187,7 +206,7 @@ export default function OrdersPage() {
     return () => {
       cancelled = true;
     };
-  }, [page, pageSize, sortColumn, sortDirection, buildQuery]);
+  }, [page, pageSize, sortColumn, sortDirection, buildQuery, refreshKey]);
 
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
   const currentPage = Math.min(page, totalPages);
@@ -243,9 +262,12 @@ export default function OrdersPage() {
           {/* Page Header */}
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h2 className="text-[2.75rem] font-black text-on-surface tracking-tight leading-none">
-                Orders
-              </h2>
+              <div className="flex items-center gap-3">
+                <h2 className="text-[2.75rem] font-black text-on-surface tracking-tight leading-none">
+                  Orders
+                </h2>
+                <LiveIndicator />
+              </div>
               <p className="text-on-surface-variant font-medium mt-2">
                 Manage and track your global retail transactions
               </p>
@@ -583,5 +605,17 @@ export default function OrdersPage() {
         onClose={() => setSelectedOrder(null)}
       />
     </>
+  );
+}
+
+function LiveIndicator() {
+  return (
+    <span className="flex items-center gap-1.5 text-xs font-semibold text-green-600 self-center">
+      <span className="relative flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+      </span>
+      Live
+    </span>
   );
 }
