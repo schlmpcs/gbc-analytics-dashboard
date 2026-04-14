@@ -335,6 +335,13 @@ export async function handleTelegramWebhook(
     }
 
     if (isCreateEvent(eventType) && totalSum > THRESHOLD) {
+      console.log("latestOrder fields:", JSON.stringify({
+        phone: latestOrder.phone,
+        email: latestOrder.email,
+        delivery: latestOrder.delivery,
+        itemCount: latestOrder.items?.length,
+      }));
+
       const phone = getString(latestOrder.phone);
       const email = getString(latestOrder.email);
       const city = getString(latestOrder.delivery?.address?.city);
