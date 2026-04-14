@@ -335,12 +335,39 @@ export async function handleTelegramWebhook(
     }
 
     if (isCreateEvent(eventType) && totalSum > THRESHOLD) {
-      const message = [
+      const phone = getString(latestOrder.phone);
+      const email = getString(latestOrder.email);
+      const city = getString(latestOrder.delivery?.address?.city);
+      const address = getString(latestOrder.delivery?.address?.text);
+
+      const itemLines = latestOrder.items
+        ?.map((item) => {
+          const name =
+            item.offer?.displayName ??
+            item.offer?.name ??
+            item.productName ??
+            "Unknown item";
+          const qty = item.quantity ?? 1;
+          const price = new Intl.NumberFormat("ru-RU").format(item.initialPrice);
+          return `  • ${escapeHtml(name)} × ${qty} — ${price} KZT`;
+        })
+        .join("\n");
+
+      const lines = [
         `<b>New High-Value Order!</b>`,
         `Order: #${escapeHtml(orderNumber)}`,
         `Customer: ${escapeHtml(customerName)}`,
-        `Amount: ${new Intl.NumberFormat("ru-RU").format(totalSum)} KZT`,
-      ].join("\n");
+      ];
+
+      if (phone) lines.push(`Phone: ${escapeHtml(phone)}`);
+      if (email) lines.push(`Email: ${escapeHtml(email)}`);
+      if (city) lines.push(`City: ${escapeHtml(city)}`);
+      if (address) lines.push(`Address: ${escapeHtml(address)}`);
+      if (itemLines) lines.push(`\nItems:\n${itemLines}`);
+
+      lines.push(`\n<b>Total: ${new Intl.NumberFormat("ru-RU").format(totalSum)} KZT</b>`);
+
+      const message = lines.join("\n");
 
       const result = await sendTelegramMessage(message, telegramConfig);
       console.log("Telegram notification sent:", result);
