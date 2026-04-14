@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script type="text/javascript" nonce="9519ff9f3a2843fa99cf91cd1c9" src="//local.adguard.org?ts=1776102028930&amp;type=content-script&amp;dmn=contribution.usercontent.google.com&amp;url=https%3A%2F%2Fcontribution.usercontent.google.com%2Fdownload%3Fc%3DCgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzM4NzE5ZmZmNWJkYjQ0MDViMzkxNDE0YWMzNjEzZDJkEgsSBxCmtJHKnhcYAZIBIgoKcHJvamVjdF9pZBIUQhI2NTc4MzE1MDkwNzY0MDk4MzI%26filename%3D%26opi%3D89354086%26authuser%3D2&amp;app=msedge.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="9519ff9f3a2843fa99cf91cd1c9" src="//local.adguard.org?ts=1776102028930&amp;name=AdGuard%20Extra&amp;type=user-script"></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#d3e4fe",
+                    "background": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-primary-fixed": "#001453",
+                    "surface-container-high": "#dde9ff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#005074",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#ebf1ff",
+                    "primary": "#00288e",
+                    "primary-fixed": "#dde1ff",
+                    "secondary": "#505f76",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "outline-variant": "#c4c5d5",
+                    "surface-variant": "#d5e3fd",
+                    "on-tertiary-container": "#68c4ff",
+                    "tertiary": "#003853",
+                    "surface-bright": "#f8f9ff",
+                    "surface-container": "#e6eeff",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "inverse-primary": "#b8c4ff",
+                    "inverse-surface": "#233144",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#c9e6ff",
+                    "surface": "#f8f9ff",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#d0e1fb",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#444653",
+                    "outline": "#757684",
+                    "on-secondary-container": "#54647a",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "on-background": "#0d1c2f",
+                    "surface-tint": "#3755c3",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "on-primary-fixed-variant": "#173bab",
+                    "surface-dim": "#ccdbf4",
+                    "on-primary-container": "#a8b8ff",
+                    "primary-container": "#1e40af",
+                    "on-surface": "#0d1c2f",
+                    "surface-container-low": "#eff4ff",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#d5e3fd",
+                    "on-tertiary-fixed": "#001e2f",
+                    "on-tertiary-fixed-variant": "#004c6e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(248, 249, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky bg-[#eff4ff] dark:bg-slate-900 z-40">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-[#00288e] dark:text-blue-500">GBC Analytics</span>
+<nav class="hidden md:flex space-x-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#00288e] font-['Inter'] font-medium text-sm tracking-tight cursor-pointer transition-all active:scale-95" href="#">Overview</a>
+<a class="text-[#00288e] dark:text-blue-400 font-bold border-b-2 border-[#00288e] dark:border-blue-400 pb-1 font-['Inter'] text-sm tracking-tight cursor-pointer transition-all active:scale-95" href="#">Orders</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#00288e] font-['Inter'] font-medium text-sm tracking-tight cursor-pointer transition-all active:scale-95" href="#">Inventory</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#00288e] font-['Inter'] font-medium text-sm tracking-tight cursor-pointer transition-all active:scale-95" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-600 cursor-pointer p-2 hover:bg-blue-50 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-slate-600 cursor-pointer p-2 hover:bg-blue-50 rounded-full transition-colors">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-2 bg-surface-container-high">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Professional portrait of a user with a clean minimalist background for a corporate profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNNNCkwo7JTbVjoMG2wcfeXCzNeUOPWiveHT4z7RpI40dw6H0xy7wT_Z86pbxdhpQ7BrLmleHkfdheiR0ASxt1cr6IXyLrLqaGwWHJ8FfARzQlAD2psBo7G7qurT9M7iFJyUOWqjEL2tdkOsdJ234_Havf2xsi4iwdD60Os92Xdutj-8cBxZtCrR0WG4CQYW4m57MwxehZeAXTEyTbbddEunzKyy0t1CEy1fi0pt76k3cnZJQfsg607SP0lb2UQNL9gRR7DzSg0Q"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-72px)]">
+<!-- SideNavBar -->
+<aside class="h-full w-64 bg-[#eff4ff] dark:bg-slate-900 hidden md:flex flex-col p-4 space-y-2 z-30">
+<div class="px-4 py-6 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">insights</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#00288e] dark:text-blue-500 leading-tight">GBC Analytics</h2>
+<p class="text-xs text-slate-500 font-medium">Retail Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#dde9ff] dark:hover:bg-slate-800 rounded-lg transition-all duration-300 font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#dde9ff] dark:hover:bg-slate-800 rounded-lg transition-all duration-300 font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+                    Analytics
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#dde9ff] dark:bg-blue-900/30 text-[#00288e] dark:text-blue-300 rounded-lg transition-all duration-300 font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+                    Orders
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#dde9ff] dark:hover:bg-slate-800 rounded-lg transition-all duration-300 font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+</nav>
+<div class="pt-4 mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#dde9ff] dark:hover:bg-slate-800 rounded-lg transition-all duration-300 font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                    Help Center
+                </a>
+</div>
+</aside>
+<!-- Main Content (Background Orders Table) -->
+<main class="flex-1 bg-background overflow-y-auto p-8 relative">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="text-3xl font-extrabold text-on-surface tracking-tight">Orders</h1>
+<p class="text-on-surface-variant text-sm mt-1">Manage and track your latest retail transactions.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-sm font-semibold rounded-md border border-outline-variant bg-white text-on-surface hover:bg-surface-container-low transition-colors">Export CSV</button>
+<button class="px-4 py-2 text-sm font-semibold rounded-md bg-gradient-to-r from-primary to-primary-container text-white shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">New Order</button>
+</div>
+</div>
+<!-- Orders Table (Content to be overlaid) -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<div class="grid grid-cols-6 gap-4 p-4 bg-surface-container-low text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<div class="col-span-1">Order ID</div>
+<div class="col-span-1">Customer</div>
+<div class="col-span-1">Date</div>
+<div class="col-span-1">Amount</div>
+<div class="col-span-1">Status</div>
+<div class="col-span-1 text-right">Actions</div>
+</div>
+<div class="divide-y-0">
+<!-- Row 1 (Selected/Active Row) -->
+<div class="grid grid-cols-6 gap-4 p-6 items-center bg-surface-container-highest/50 border-l-4 border-primary">
+<div class="col-span-1 font-bold text-primary text-sm">#ORD-99284</div>
+<div class="col-span-1">
+<p class="text-sm font-semibold">Julianne Moore</p>
+<p class="text-xs text-on-surface-variant">j.moore@email.com</p>
+</div>
+<div class="col-span-1 text-sm text-on-surface-variant">Oct 24, 2023</div>
+<div class="col-span-1 text-sm font-bold">$1,240.00</div>
+<div class="col-span-1">
+<span class="px-3 py-1 text-[10px] font-bold uppercase bg-primary-fixed text-on-primary-fixed rounded-full">Complete</span>
+</div>
+<div class="col-span-1 text-right">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">visibility</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-6 gap-4 p-6 items-center hover:bg-surface-container-highest transition-colors">
+<div class="col-span-1 font-bold text-on-surface text-sm">#ORD-99285</div>
+<div class="col-span-1">
+<p class="text-sm font-semibold">Robert Chen</p>
+<p class="text-xs text-on-surface-variant">r.chen@provider.net</p>
+</div>
+<div class="col-span-1 text-sm text-on-surface-variant">Oct 24, 2023</div>
+<div class="col-span-1 text-sm font-bold">$450.25</div>
+<div class="col-span-1">
+<span class="px-3 py-1 text-[10px] font-bold uppercase bg-tertiary-container text-on-tertiary-container rounded-full">Processing</span>
+</div>
+<div class="col-span-1 text-right">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">visibility</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-6 gap-4 p-6 items-center hover:bg-surface-container-highest transition-colors">
+<div class="col-span-1 font-bold text-on-surface text-sm">#ORD-99286</div>
+<div class="col-span-1">
+<p class="text-sm font-semibold">Sarah Jenkins</p>
+<p class="text-xs text-on-surface-variant">sarah.j@outlook.com</p>
+</div>
+<div class="col-span-1 text-sm text-on-surface-variant">Oct 23, 2023</div>
+<div class="col-span-1 text-sm font-bold">$89.00</div>
+<div class="col-span-1">
+<span class="px-3 py-1 text-[10px] font-bold uppercase bg-error-container text-on-error-container rounded-full">Cancelled</span>
+</div>
+<div class="col-span-1 text-right">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">visibility</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Overlay Background Dimmer -->
+<div class="fixed inset-0 bg-on-surface/10 backdrop-blur-sm z-40"></div>
+<!-- Order Detail Drawer (Slide-over) -->
+<div class="fixed right-0 top-0 h-full w-full max-w-lg glass-panel shadow-[0px_12px_32px_rgba(13,28,47,0.12)] z-50 flex flex-col border-l border-outline-variant/10">
+<!-- Drawer Header -->
+<div class="p-6 flex justify-between items-center bg-surface-container-low">
+<div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-[0.2em] block mb-1">Transaction Insight</span>
+<h2 class="text-2xl font-black text-on-surface">Order Details</h2>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-error-container hover:text-on-error-container transition-all group shadow-sm">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<!-- Drawer Content -->
+<div class="flex-1 overflow-y-auto p-8 space-y-10">
+<!-- Essential Meta -->
+<div class="flex justify-between items-start">
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Reference ID</p>
+<p class="text-xl font-black text-primary">#ORD-99284</p>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Timestamp</p>
+<p class="text-sm font-medium text-on-surface">Oct 24, 2023 • 14:32 PM</p>
+</div>
+</div>
+<!-- Status Display -->
+<div class="bg-primary-container/5 rounded-xl p-4 flex items-center justify-between border border-primary/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant">Current Status</p>
+<p class="text-sm font-bold text-primary">Payment Complete &amp; Fulfilled</p>
+</div>
+</div>
+<button class="text-xs font-bold text-primary hover:underline">Update</button>
+</div>
+<!-- Customer Profile Section -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">person</span>
+<h3 class="text-sm font-bold text-on-surface uppercase tracking-widest">Customer Details</h3>
+</div>
+<div class="grid grid-cols-2 gap-y-6 gap-x-4 bg-surface-container-lowest p-6 rounded-xl">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Full Name</p>
+<p class="text-sm font-semibold text-on-surface">Julianne Moore</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Phone Number</p>
+<p class="text-sm font-semibold text-on-surface">+1 (555) 012-9938</p>
+</div>
+<div class="col-span-2">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Email Address</p>
+<p class="text-sm font-semibold text-on-surface">j.moore@email.com</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">City / Region</p>
+<p class="text-sm font-semibold text-on-surface">Seattle, WA</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Zip Code</p>
+<p class="text-sm font-semibold text-on-surface">98101</p>
+</div>
+<div class="col-span-2">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Shipping Address</p>
+<p class="text-sm font-semibold text-on-surface leading-relaxed">721 Pine Street, Apt 14B, Seattle, Washington, USA</p>
+</div>
+</div>
+</section>
+<!-- Itemized Summary -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<h3 class="text-sm font-bold text-on-surface uppercase tracking-widest">Itemized Summary</h3>
+</div>
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden flex-shrink-0">
+<img alt="Nike Shoe" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="close-up of a vibrant red performance running shoe against a clean white background with professional product lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz9SGBD12lcvKJ_Z__YBNb5kemWAZKzyC4Zmx6AdAXkEd8kDn_g2PyZWn6UZ2kyZGbifSqgxmIjuA90v6QemxUHpgiakHDsSaKCzeMmqhNNKZjWeLSCRVbyyn0rUQa5QoPkdd8trnUCfMBWvrJ87vFukRcrjqhK_Gzb-f5P282bsrrvyRjX0eWHSMR3YzU_klp1zNWdVHmZa2mdoB9vVtsDfi5dXnrgQBO8zYXVSpb7wQm4pJjiTDStHgweorsOfAtAh_FKAIJ4w"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-on-surface truncate">Air Max Velocity X1</p>
+<p class="text-xs text-on-surface-variant">SKU: NIKE-992-RD • Size: 10.5</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">$180.00</p>
+<p class="text-[10px] text-on-surface-variant">Qty: 2</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden flex-shrink-0">
+<img alt="Leather Bag" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="high-end minimalist tan leather handbag with gold accents on a neutral studio background with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTo0qEo28p0b2feh3vTiIH2Zz6Q5FyCksAgQvrFrb_w4dU1xiHRetBTQU_rA3vLQwqjfwe1pvZD09pDLb3IyGKKrjIEwyIZ1wc1PFcIPgJg7s7Zmt-dj3jbktiIXP_YtQvPaF532zjCaN3Xpl5Xsj0SR7KHqHljGEO-RBRfnb7D_4ESd7w0FODwu22_a19tixWHALGFHTBBgKAc5cY4X1HP8FNJxlY6974heOBI-NfQL1VCZK6NQeEbp45alhCGn-5YRM8dtsnzw"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-on-surface">Cognac Leather Satchel</p>
+<p class="text-xs text-on-surface-variant">SKU: LTHR-441-BR • Hand-stitched</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">$880.00</p>
+<p class="text-[10px] text-on-surface-variant">Qty: 1</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Drawer Footer (Total) -->
+<div class="p-8 bg-surface-container-low border-t border-outline-variant/10">
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Subtotal</span>
+<span class="font-medium text-on-surface">$1,240.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Shipping (Express)</span>
+<span class="font-medium text-on-surface text-primary">Free</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Tax</span>
+<span class="font-medium text-on-surface">$0.00</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Total Amount Paid</p>
+<p class="text-3xl font-black text-primary">$1,240.00</p>
+</div>
+<button class="px-6 py-3 rounded-lg bg-on-surface text-white font-bold hover:bg-on-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">receipt_long</span>
+                            Print Invoice
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
