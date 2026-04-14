@@ -486,10 +486,9 @@ export default function OrdersPage() {
                                 #{order.number}
                               </td>
                               <td className="px-6 py-5 text-sm text-on-surface-variant">
-                                {format(
-                                  parseISO(order.created_at),
-                                  "MMM dd, yyyy"
-                                )}
+                                {order.created_at
+                                  ? format(parseISO(order.created_at), "MMM dd, yyyy")
+                                  : "—"}
                               </td>
                               <td className="px-6 py-5">
                                 <div className="flex items-center gap-3">
